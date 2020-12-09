@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { API } from "aws-amplify";
+import { BsPencilSquare } from "react-icons/bs";
 import ListGroup from "react-bootstrap/ListGroup";
+import { LinkContainer } from "react-router-bootstrap";
 import { useAppContext } from "../libs/contextLib";
 import { onError } from "../libs/errorLib";
 import "./Home.css";
-import { API } from "aws-amplify";
-import { BsPencilSquare } from "react-icons/bs";
-import { LinkContainer } from "react-router-bootstrap";
 
 export default function Home() {
   const [notes, setNotes] = useState([]);
@@ -30,10 +30,6 @@ export default function Home() {
 
     onLoad();
   }, [isAuthenticated]);
-
-  /*function loadNotes() {
-    return API.get("notes", "/invalid_path");
-  }*/
 
   function loadNotes() {
     return API.get("notes", "/notes");
@@ -82,7 +78,7 @@ export default function Home() {
       </div>
     );
   }
-
+  
   return (
     <div className="Home">
       {isAuthenticated ? renderNotes() : renderLander()}

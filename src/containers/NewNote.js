@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
+import { API } from "aws-amplify";
 import Form from "react-bootstrap/Form";
 import { useHistory } from "react-router-dom";
 import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
+import { s3Upload } from "../libs/awsLib";
 import config from "../config";
 import "./NewNote.css";
-import { API } from "aws-amplify";
-import { s3Upload } from "../libs/awsLib";
 
 export default function NewNote() {
   const file = useRef(null);
@@ -48,11 +48,10 @@ export default function NewNote() {
   }
 
   function createNote(note) {
-      return API.post("notes", "/notes", {
-        body: note
+    return API.post("notes", "/notes", {
+      body: note
     });
   }
-
 
   return (
     <div className="NewNote">
